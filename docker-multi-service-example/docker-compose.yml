@@ -27,6 +27,8 @@ services:
       MYSQL_DATABASE: testdb
     ports:
       - "3306:3306"
+    volumes:
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     networks:
       - mynetwork
 
