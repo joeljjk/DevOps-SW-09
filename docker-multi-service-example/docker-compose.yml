@@ -1,0 +1,34 @@
+# docker-compose.yml
+
+version: '3'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5001:5000"  # Change this line
+    networks:
+      - mynetwork
+    depends_on:
+      - db
+
+  webserver:
+    build: ./webserver
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - mynetwork
+
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: testdb
+    ports:
+      - "3306:3306"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
